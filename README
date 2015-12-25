@@ -1,0 +1,244 @@
+=================================Buzz!t Search Engine=========================
+Members:
+
+Haoyun Qiu: haoyun@seas.upenn.edu
+Bowen Bao: bowenbao@seas.upenn.edu
+Linwei Chen: linweic@seas.upenn.edu
+Yunqi Chen: chenyunq@seas.upenn.edu
+
+Features:
+
+1.Distributed web crawler
+
+*You can check ./crawler/logs for detail stat of our latest crawled. (11 * m4.large, over 1M crawled pages)
+
+== Mercator-based design. Master/Worker structure. 
+== Worker: 
+    Components:
+    ==Http Fetcher: For fetching files from web, can handle:
+        various of exceptions, Robots cache, timeout, content-length, content-type
+        content-encoding(gzip, deflate), redirect and max-depth, cookie manager.
+    ==Host Splitter: Each url will be hashed according to its host, if this url is not belongs to this worker,
+        it will batch them for others. 
+    ==URL Frontier: Contain URLs to be crawled, handle politeness and url priority. Include: 
+            ==HostHeap: Maintain politeness. 
+            ==Frontend queue: 
+                Similarity based url queue, which maintain two queues, a hot queue for hot pages and another normal-queue. 
+                When some backend queue becomes empty, it will first look for new url from hot queue, 
+                then look for it in normal queue when hot queue is empty.
+            A hot page: when url and its title contains anchor words, or its content contains over 10 anchor words, then we define it
+            a hot page. Then all its sub-links will have a 20% chance to become a hot page and enqueue to hot queue. 
+            ==Backend queue: Each active host map a backend queue for crawling urls. 
+            ==Host-Queue Map: A mapping between a host and its backend queue. 
+    ==Link Extractor:
+        Handle various of corner cases: relative or absolute path,  /, ///, http:///, javascript:void(0), mailto:
+    ==URL Filter:
+        cgi-bin and other links we don’t want
+    ==Content-seen: for removing duplicated-content web page(Rabin footprint algorithm for reducing memory footprint) 
+    ==DUE: for removing duplicated urls(also use Rabin hash) 
+    ==Servlet for nodes' communication
+
+Extra credits:
+    ==Duplicated content checked:
+        ==Content-seen component: use Rabin footprint algorithm to hash the page content and cache it for duplicated content checked. 
+        ==Canonical tag: check html's cannonical tag to locate the original page, drop it if canonical crawled before and only store the canonical url if new. 
+        (From our over 1 million crawled pages, about half of pages could be removed by that.) 
+
+    ==Similarity Based Algorithm: 
+        Remain another hot url queue for high-correlation web-page as mentioned before.
+        Reference: Junghoo Cho, Hector Garcia-Molina, Lawrence Page, Efficient Crawling Through URL Ordering
+
+    ==Indexer and PageRank assistant:
+        ==Crawler extract the content-text of the html file instead of a raw one for indexer. Normally, a cleaned html will only have 1/10 size and the information is much more meaningful. 
+        ==Crawler check and store out-links of a url for PageRank. Malformed and useless url are removed before store. 
+
+Source Structure:
+    Crawler worker: ./crawler/src/com/myapp/
+        ==worker: each crawler worker's components
+        ==utils: some utility model
+        ==servlet: servlet for node communication
+        ==db: BDB component
+        ==test: JUnit test
+    Crawler master: ./crawler_master/src/com/myapp/
+        ==master: all component
+        ==test: JUnit test
+
+
+Instructions:
+1 For local worker test, run src/com.myapp.worker.WorkerProducer from ./crawler to tigger the start of a worker. 
+2 For AWS test: 
+    ==sh each build.sh in ./crawler and ./crawler_master to build .war file.
+    ==use AWS Elastic Beanstalk to create Tomcat8 environment for master and worker. 
+    == Master can use t2.micro instance, with 1024m JVM heap size.
+        use URL: http://jasoncrawlermaster.elasticbeanstalk.com/
+    == Each worker can use m4.large instance, with 2560m JVM heap size 
+        use URL: 
+            http://jasoncrawlerworker0.elasticbeanstalk.com/
+            http://jasoncrawlerworker1.elasticbeanstalk.com/
+            ....
+            and so on.
+    ==After all set up, goto http://jasoncrawlermaster.elasticbeanstalk.com/status and you will see a monitor of master, you will see all active worker's status and some config arguments of each worker.
+    ==submit the job then all worker will start to crawl, you will see the update information(crawl pages, speed and each component's info)of each worker every 10 secs.
+
+
+
+2.Indexer:
+
+== Distributed Indexer based on Apache Spark. Deployed on Amazon EC2.
+== Master:
+    Components:
+    == Search Engine: Entrance for servlet server to query pages. Return result as QueryResultItems. Supports different parameter adjustion from buzzit.conf, also supports multiple level caching.
+        == QueryResultItems: Wrapper class containing query results for both crawled pages and wiki entities.
+        == Cache: Interface for different level of cache.
+        == QueryResultCache: Manager for different level of cache. Lookup/caching will go through each level of cache. Details are hidden from users.
+        == CentralCache: First level cache stored in Master Memory, with a least used replacement scheme.
+        == DistributedCache: Second level cache spread across all workers, with a random replacement scheme. 
+    == Ranker: Responsible for taking a query and return ranked pages combinining indexer weight and pagerank factor.
+        == QueryPageEntity: Wrapper class containing query results for crawled pages. Responsible for generating page abstract based on query.
+    == ImageNet: Responsible for retrieving the image recognition result from image recoginition server.
+        == ImageNetServer.py: Responsible for providing image recognition result. Deployed on an EC2 GPU server, running a pretrained VGG CNN based on Caffe.
+    == Indexer: Entrance for taking a query and return ranked pages based on indexer weight.
+        == TfIdf: Implementation of inverted index on Apache Spark. Supports stemming, stoplist, different weighing for keywords in url and title, and phrase indexing. Also supports hierarchical champion list for query efficiency.
+        == Hierarchical champion list: Multiple level of champion lists, with list length and hierarchy height defined in buzzit.conf.
+        == Stemmer/StopList: Based on porter stemmer, stem and skip words in crawled pages and queries.
+
+    == KnowledgeGraph: Entrance for taking a query and return matched wiki entity.
+        == KnowledgeTfIdf: Implementation of inverted index on Apache Spark. Looks for precise matching of query and wiki entity title.
+
+Extra credits:
+    == Include documents and word metadata: show excerpt of the orignial document on results page highlighting hits. This is done after retrieval of pages with a greedy approach.
+    == Fault tolerance: achieved with Apache Spark. Storing temporary results for inverted index onto HDFS. And maintaining the hierarchical champion list both in memory and disk. 
+
+Source Structure:
+    SearchEngine: ./search_engine/server/src/com/buzzit/
+    ranker: ./search_engine/server/src/com/buzzit/ranker/
+    indexer: ./search_engine/server/src/com/buzzit/indexer/
+    imagesearch: ./search_engine/server/src/com/buzzit/imagesearch/
+
+    unittest: ./search_engine/server/test/com/buzzit/
+
+
+3.PageRank:
+== Distributed PageRank engine based on Apache Spark. Deployed on Amazon EC2.
+
+Extra Credit:
+	== Used Apache Spark, a more modern “successor” to Hadoop MapReduce, as the basis of our PageRank implementation. 
+
+
+4.SearchEngine:
+
+== servlet-based server running in jetty, integrated with indexer, deployed on Amazon EC2
+	== There is a httpservlet subclass handles both GET and POST requests from clients. The server parses parameters and render either a html file for homepage display or a jsp file for search result page display. Requests with parameters can only be sent in POST request.
+	== Web interface is deveploped on Bootstarp platform, which is responsive to the size of various device.
+	== There is also a ios app for this search-engine application
+
+Extra Credits:
+	== Integrated Wiki results separate from normal crawled results, displaying on the right side of the page
+	== Support for image search. (Images can be submit as input, server will return web pages relevant to uploaded images)
+	== Featuring auto-completion while user typing in queries
+	== Mobile client (on iOS), which also integrated weather results in any arbitrary city (if the query is related to weather) retrieved from the open weather web service
+
+Instruction:
+	local test:
+		run script ./search_engine/server/build.sh to compile
+		run script ./search_engine/server/run.sh to run the application
+		go to localhost:8081 to see the web page
+
+
+Appendix
+# How to launch an EC-2 cluster and deploy Indexer.
+
+## launch and prepare the EC-2 cluster
+
+Change '~/master.pem' to your key in launch_cluster.sh, login.sh, start.sh, stop.sh, update-java.sh. Move spark_ec2.py into your spark/ec2/ folder. These scripts can be found in indexer/scripts.
+
+Run ./launch_cluster.sh
+
+Wait for the cluster to launch.
+In the future, You can login to master by ./login.sh, you can login to slave by 'ssh -i ~/your.pem root@ec2-SLAVE-HOSTNAME'. 
+
+After the cluster has launched successfully, run the following.
+
+./update-java.sh
+./move-spark-workdir.sh
+scp -i ~/your.pem fix_spark_ebs.sh root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem fix_spark_local.sh root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem mount.sh root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem run.sh root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem ranker.jar root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem spark.conf root@ec2-MASTER-HOSTNAME:
+scp -i ~/your.pem extract.sh root@ec2-MASTER-HOSTNAME:/vol0/
+scp -i ~/your.pem dbExtractor.jar root@ec2-MASTER-HOSTNAME:/vol0/
+scp -i ~/your.pem parseWiki.py root@ec2-MASTER-HOSTNAME:/vol0/
+scp -i ~/your.pem db.conf root@ec2-MASTER-HOSTNAME:/vol0/
+
+Now login to master.
+
+./login.sh
+./fix_spark_ebs.sh
+./fix_spark_local.sh
+
+Right now the cluster should be ready, but we still lack the data for our ranker. Note that everytime after you stop.sh and start.sh the cluster, you need to login and do ./fix_spark_ebs.sh and ./fix_spark_local.sh. You also need to change the hostname of master in file spark.conf, as it has changed after restart.
+
+## Prepare data
+
+First we prepare data crawled by the crawler.
+Go to the AWS console, in Volumes, select Create Volume, enter the Snapshot ID of, note that you must select the Availability Zone the same as your cluster's.
+Now, right click the created volumes, select attach volume, and choose the master node. Then, we login to master and extract our data.
+
+./login.sh
+lsblk
+mkdir /mnt/data1
+mkdir /mnt/data2
+mkdir /mnt/data3
+./mount.sh
+cd /vol0
+./extract.sh
+
+This would take a while, as the extractor would generate the file 'corpus'. After completion, we can do the following to put the corpus into our HDFS.
+
+cd ~
+./persistent-hdfs/bin/hadoop fs -mkdir -p /user/root
+./persistent-hdfs/bin/hadoop fs -mkdir -p /testdir
+./persistent-hdfs/bin/hadoop fs -put corpus /testdir/
+
+Now we prepare data for our knowledge graph, remove the break in parseWiki.py.
+
+cd /vol0
+wget https://dumps.wikimedia.org/enwiki/20151201/enwiki-20151201-abstract.xml
+python parseWiki.py
+
+This would take a while, as the script would generate the file 'wiki'. After completion, we can do the following to put the data into our HDFS.
+
+cd ~
+./persistent-hdfs/bin/hadoop fs -put wiki /testdir/
+
+Now the preparation for our data is complete.
+
+## Run Ranker
+
+cd ~
+./run.sh
+
+Wait for the ranker to run. You can view the status through your webbrowser in ec2-MASTER-HOSTNAME:8080.
+If success, it should finish and stop to ask you to input your query.
+
+
+# How to run unit test
+
+Build and run RunAllTests.
+Note that some tests(DbExtractor etc) will not work, as we have not submitted the test db with this submission(small test db with 100Mb).
+
+# Dependencies
+datanucleus-api-jdo-3.2.6.jar  
+guava-18.0.jar         
+jsoup-1.8.3.jar               
+spark-assembly-1.5.1-hadoop2.6.0.jar
+datanucleus-core-3.2.10.jar    
+hamcrest-core-1.3.jar  
+junit.jar                     
+spark-examples-1.5.1-hadoop2.6.0.jar
+datanucleus-rdbms-3.2.9.jar    
+je-6.2.31.jar          
+spark-1.5.1-yarn-shuffle.jar
+

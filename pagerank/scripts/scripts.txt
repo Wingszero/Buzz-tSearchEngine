@@ -1,0 +1,2 @@
+ spark/bin/spark-submit --jars guava-18.0.jar --class edu.upenn.cis455.PageRank --deploy-mode client pagerank-1.0.jar hdfs://ec2-54-172-12-123.compute-1.amazonaws.com:9010/800k_links > 800k_pagerank
+cut -f 1 -d # corpus | uniq | sed -e 's/http:\/\///g

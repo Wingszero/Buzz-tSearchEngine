@@ -1,0 +1,8 @@
+# spark url: {local, spark://hostname:7077}
+# hdfs url: {, hdfs://hostname:9010}
+# indexer path: {../testdir/small, /testdir/corpus}
+# wiki path: {../testdir/wiki, /testdir/wiki}
+# tfidf path: {../testdir/tfidf, /testdir/tfidf}
+# wiki_tfidf path: {../testdir/wiki_tfidf, /testdir/wiki_tfidf}
+# boolean recompute: {recompute, otherwise}
+# spark conf: {spark.executor.memory 4g, ...}*

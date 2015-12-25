@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>500: Server Internal Error</title>
+    <link rel="shortcut icon" href="/images/1.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+      body {
+        background: #F1F3F5;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+
+      hr {
+        width: 80px;
+        height: 1px;
+        color: #A0A3A6;
+        border-top: 1px solid #8c8b8b;
+      }
+
+      h1 {
+        letter-spacing: 6px;
+        margin: 50px 0 32px 0;
+        font-weight: 500;
+        text-align: center;
+        font-size: 14px;
+        color: #303336;
+      }
+
+      h2 {
+        font-size: 30px;
+        text-align: center;
+        color: #303336;
+        font-weight: 300;
+      }
+
+      .logo-container{
+        position: relative;
+        margin-top: 75px;
+      }
+
+      .reflection {
+        background: linear-gradient(to bottom, rgba(225,236,239,1) 0%, rgba(225,236,239,0.69) 31%, rgba(225,236,239,0.66) 34%, rgba(241,243,245,0.55) 45%, rgba(241,243,245,0.5) 50%, rgba(241,243,245,0) 100%);
+        height: 100px;
+        width: 240px;
+        border-radius: 15px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        margin: 0 auto;
+        display: block;
+      }
+
+      .back {
+        width: 240px;
+        height: 240px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left:-120px;
+      }
+
+      .logo, .back {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .logo--ani {
+        -webkit-animation: LogoAni 1s ease-in-out alternate;
+        animation: LogoAni 1s ease-in-out alternate;
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        -webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
+        animation-delay: 0.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+
+      @-webkit-keyframes LogoAni {
+        from {
+          -webkit-transform: rotateY(0deg);
+          -webkit-animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          -webkit-transform: rotateY(-180deg);
+        }
+      }
+
+      @keyframes LogoAni {
+        from {
+          transform: rotateY(0deg);
+          animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          transform: rotateY(-180deg);
+        }
+      }
+
+      .back--ani {
+        -webkit-animation: BackAni 1s ease-in-out alternate;
+        animation: BackAni 1s ease-in-out alternate;
+        -webkit-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
+        animation-delay: 0.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+
+      @-webkit-keyframes BackAni {
+        from {
+          -webkit-transform: rotateY(-180deg);
+          -webkit-animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          -webkit-transform: rotateY(0deg);
+        }
+      }
+
+      @keyframes BackAni {
+        from {
+          transform: rotateY(-180deg);
+          animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          transform: rotateY(0deg);
+        }
+      }
+
+      .reflection--ani {
+        -webkit-animation: ReflecAni 1s ease-in-out alternate;
+        animation: ReflecAni 1s ease-in-out alternate;
+        -webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
+        animation-delay: 0.5s;
+      }
+
+      @-webkit-keyframes ReflecAni {
+        from {
+          -webkit-transform: rotateY(0deg);
+          -webkit-animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          -webkit-transform: rotateY(-180deg);
+        }
+      }
+
+      @keyframes ReflecAni {
+        from {
+          transform: rotateY(0deg);
+          animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+        }
+        to {
+          transform: rotateY(-180deg);
+        }
+      }
+
+      .gradient {
+        background: radial-gradient(ellipse farthest-side at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 25%, rgba(241,243,245,1) 45%, rgba(241,243,245,1) 50%, rgba(241,243,245,1) 52%, rgba(241,243,245,1) 100%);
+        position: absolute;
+        margin: 0 auto;
+        width: 100%;
+        height: 450px;
+        top: 180px;
+      }
+
+      .block {
+        background-color: #F1F3F5;
+        position: absolute;
+        left: auto;
+        top: 240px;
+        width: 100%;
+        height: 200px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0077B5;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .footer {
+        position: relative;
+        text-align: center;
+        padding: 0 0 0 5px;
+      }
+
+      .primary-footer,
+      .secondary-footer {
+        list-style: none;
+      }
+
+      .space {
+        color: #A0A3A6;
+        font-weight: 600;
+      }
+
+      .primary-footer li > a:hover,
+      .primary-footer li > a:focus,
+      .secondary-footer li > a:hover,
+      .secondary-footer li > a:focus {
+        text-decoration: underline;
+        color: #00A0DC;
+      }
+
+      .primary-footer > li,
+      .secondary-footer > li {
+        display: inline-block;
+      }
+
+      .secondary-footer {
+       margin-top: 15px;
+      }
+
+      p {
+        color: #A0A3A6;
+        font-weight: 600;
+      }
+
+      .copyright {
+        cursor: default;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gradient">
+    </div>
+    <div class="block">
+    </div>
+    <div id="main">
+      <h1>404 PAGE NOT FOUND</h1>
+      <hr>
+
+      <h2>We couldn&#146;t find that page. It either moved or doesn&#146;t exist anymore.</h2>
+      </div>
+    </div>
+      </body>
+</html>
