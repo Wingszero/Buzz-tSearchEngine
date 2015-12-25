@@ -1,0 +1,479 @@
+worker1
+Pages: 120834
+URLFrontier: hostHeap size: 118533 hot queue size: 0 normal queue size: 0  HotPages hits15788
+DUE filter urls: 4648409
+URLFilter filter size:751
+HostSplitter filter size:2883711
+Content-Seen filter nums: 61972
+Response code status:
+-1 1554
+200 155330
+522 3
+203 11
+525 57
+400 45
+401 9
+403 397
+404 6704
+406 1
+408 30
+410 35
+417 29
+998 13
+999 8
+429 39263
+301 1358
+302 926
+303 5
+500 337
+501 3
+502 125
+503 371
+504 2
+508 30
+509 2
+
+robots cache size:46829
+Status: running
+Speed: 31.5087 page /s
+Total size:10204.978872 MB
+Avg:84.45453160534286 KB
+Min:0.0 KB
+Max:100557.18 KB
+webpage db size:47676
+
+
+worker2
+Pages: 120064
+URLFrontier: hostHeap size: 188434 hot queue size: 0 normal queue size: 0  HotPages hits17235
+DUE filter urls: 2479921
+URLFilter filter size:1453
+HostSplitter filter size:3264512
+Content-Seen filter nums: 61466
+Response code status:
+-1 1632
+200 152958
+522 3
+203 2
+525 275
+400 80
+401 16
+402 1
+403 213
+404 7054
+406 5
+408 4
+410 23
+417 13
+998 3
+999 5
+429 41454
+301 1805
+302 728
+303 7
+307 1
+500 121
+502 1
+503 118
+504 160
+508 42
+
+robots cache size:50052
+Status: running
+Speed: 31.150494 page /s
+Total size:9248.613631 MB
+Avg:77.03069721981609 KB
+Min:0.0 KB
+Max:1591.901 KB
+webpage db size:49915
+
+worker3
+Pages: 85095
+URLFrontier: hostHeap size: 107188 hot queue size: 0 normal queue size: 0  HotPages hits13897
+DUE filter urls: 5421375
+URLFilter filter size:670
+HostSplitter filter size:2225629
+Content-Seen filter nums: 37986
+Response code status:
+-1 1048
+200 109678
+522 1
+203 3
+204 3
+524 1
+525 441
+400 39
+401 9
+402 2
+403 114
+404 4779
+406 7
+409 5
+410 13
+412 1
+417 65
+998 26
+300 1
+301 1099
+429 24084
+302 533
+303 18
+307 2
+500 159
+502 59
+503 112
+505 1
+
+robots cache size:37483
+Status: running
+Speed: 22.020891 page /s
+Total size:7340.723067 MB
+Avg:86.26503398554557 KB
+Min:0.0 KB
+Max:1561.684 KB
+webpage db size:40668
+
+
+worker4
+Pages: 122258
+URLFrontier: hostHeap size: 111189 hot queue size: 0 normal queue size: 0  HotPages hits20165
+DUE filter urls: 3862976
+URLFilter filter size:1288
+HostSplitter filter size:3457792
+Content-Seen filter nums: 58884
+Response code status:
+-1 1758
+200 158864
+522 1
+203 2
+204 10
+525 216
+400 56
+401 4
+403 180
+404 7190
+405 1
+406 2
+408 12
+410 26
+417 12
+998 6
+429 42182
+301 1437
+302 1001
+303 6
+307 13
+500 228
+502 153
+503 445
+504 14
+
+robots cache size:57709
+Status: running
+Speed: 31.556723 page /s
+Total size:10215.673172 MB
+Avg:83.55832069884997 KB
+Min:0.0 KB
+Max:1589.579 KB
+webpage db size:54510
+
+worker5
+Pages: 137248
+URLFrontier: hostHeap size: 152044 hot queue size: 0 normal queue size: 0  HotPages hits20587
+DUE filter urls: 2800602
+URLFilter filter size:1428
+HostSplitter filter size:3804071
+Content-Seen filter nums: 68551
+Response code status:
+-1 2092
+417 29
+998 3
+999 5
+200 173765
+203 7
+301 1410
+429 45616
+302 1120
+303 6
+400 46
+401 21
+403 165
+307 3
+404 7298
+500 517
+502 48
+406 3
+503 180
+504 41
+408 33
+410 34
+508 5
+
+robots cache size:56167
+Status: running
+Speed: 35.13008 page /s
+Total size:11210.84689 MB
+Avg:81.68313483620891 KB
+Min:0.0 KB
+Max:1540.602 KB
+webpage db size:58571
+
+worker6
+Pages: 112705
+URLFrontier: hostHeap size: 181672 hot queue size: 0 normal queue size: 0  HotPages hits15653
+DUE filter urls: 2403978
+URLFilter filter size:938
+HostSplitter filter size:2987859
+Content-Seen filter nums: 55358
+Response code status:
+-1 1394
+200 145897
+522 3
+203 12
+400 34
+401 16
+402 1
+403 175
+404 6663
+405 2
+406 10
+408 49
+410 25
+417 16
+998 2
+301 1180
+429 33987
+302 1155
+303 4
+307 8
+500 91
+502 2
+503 473
+504 4
+508 190
+
+robots cache size:46223
+Status: running
+Speed: 28.711672 page /s
+Total size:8823.761251 MB
+Avg:78.29077016103987 KB
+Min:0.0 KB
+Max:1614.972 KB
+webpage db size:48366
+
+worker7
+Pages: 129630
+URLFrontier: hostHeap size: 111875 hot queue size: 0 normal queue size: 0  HotPages hits19872
+DUE filter urls: 3932240
+URLFilter filter size:1121
+HostSplitter filter size:3659557
+Content-Seen filter nums: 60387
+Response code status:
+-1 1689
+200 165350
+203 11
+204 3
+524 86
+525 57
+206 1
+400 31
+401 19
+403 186
+404 7161
+406 6
+408 4
+410 24
+998 6
+999 6
+429 44947
+301 1481
+302 715
+303 9
+500 282
+502 9
+503 255
+504 4
+508 81
+
+robots cache size:60172
+Status: running
+Speed: 32.784023 page /s
+Total size:9966.506842 MB
+Avg:76.88426168325233 KB
+Min:0.0 KB
+Max:2092.237 KB
+webpage db size:59692
+
+worker8
+dbges: 137888
+URLFrontier: hostHeap size: 163562 hot queue size: 0 normal queue size: 0  HotPages hits17396
+DUE filter urls: 2939083
+URLFilter filter size:2913
+HostSplitter filter size:3295748
+Content-Seen filter nums: 73897
+Response code status:
+-1 1897
+200 174237
+521 2
+203 18
+204 1
+524 1
+525 227
+526 1
+400 26
+401 56
+402 1
+403 194
+404 7307
+406 18
+408 2
+920 3
+409 2
+410 23
+417 1
+998 5
+999 1
+429 45818
+301 1530
+302 949
+303 9
+307 3
+500 191
+502 142
+503 187
+504 2
+508 4
+
+robots cache size:52636
+Status: running
+Speed: 35.03286 page /s
+Total size:11045.579431 MB
+Avg:80.10544377320724 KB
+Min:0.0 KB
+Max:2113.242 KB
+webpage db size:51936
+
+worker9
+Pages: 128556
+URLFrontier: hostHeap size: 151705 hot queue size: 0 normal queue size: 0  HotPages hits17480
+DUE filter urls: 3121068
+URLFilter filter size:1063
+HostSplitter filter size:3272128
+Content-Seen filter nums: 66459
+Response code status:
+-1 1677
+200 163985
+522 100
+203 3
+525 65
+400 12
+401 25
+403 118
+404 7767
+405 3
+406 9
+410 28
+417 3
+998 19
+300 2
+429 44152
+301 1842
+302 1045
+303 12
+307 2
+500 175
+502 5
+503 287
+504 17
+508 29
+
+robots cache size:52902
+Status: running
+Speed: 32.345745 page /s
+Total size:10085.834985 MB
+Avg:78.45479779240176 KB
+Min:0.0 KB
+Max:1563.891 KB
+webpage db size:52183
+
+worker10
+Pages: 109437
+URLFrontier: hostHeap size: 161081 hot queue size: 0 normal queue size: 0  HotPages hits15442
+DUE filter urls: 2746817
+URLFilter filter size:946
+HostSplitter filter size:2989616
+Content-Seen filter nums: 53179
+Response code status:
+-1 2078
+417 55
+200 141049
+203 1
+301 1317
+429 34562
+525 171
+302 729
+303 9
+400 63
+401 6
+403 105
+404 7113
+500 488
+502 14
+406 7
+503 466
+504 30
+408 577
+410 17
+
+robots cache size:47585
+Status: running
+Speed: 27.472366 page /s
+Total size:8849.645488 MB
+Avg:80.86520544240065 KB
+Min:0.0 KB
+Max:1573.805 KB
+webpage db size:47184
+
+worker11
+Pages: 111449
+URLFrontier: hostHeap size: 188878 hot queue size: 0 normal queue size: 0  HotPages hits15930
+DUE filter urls: 2700581
+URLFilter filter size:1057
+HostSplitter filter size:3194422
+Content-Seen filter nums: 48225
+Response code status:
+-1 1642
+200 138173
+203 7
+204 5
+525 422
+206 1
+400 50
+401 53
+403 204
+404 6383
+406 5
+410 17
+417 25
+998 5
+300 1
+429 30890
+301 1297
+302 677
+303 4
+304 1
+307 2
+500 202
+502 4
+503 106
+504 8
+508 6
+
+robots cache size:47596
+Status: running
+Speed: 27.90224 page /s
+Total size:8417.410502 MB
+Avg:75.52701685972956 KB
+Min:0.0 KB
+Max:5142.443 KB
+webpage db size:54652
