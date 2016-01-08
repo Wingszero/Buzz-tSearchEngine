@@ -1,6 +1,9 @@
 =================================Buzz!t Search Engine=========================
-Members:
 
+To maintain academic integrity, source at my private repo: 
+https://bitbucket.org/cis555final/mysearchengine/src
+
+author:
 Haoyun Qiu: haoyun@seas.upenn.edu
 Bowen Bao: bowenbao@seas.upenn.edu
 Linwei Chen: linweic@seas.upenn.edu
@@ -10,7 +13,6 @@ Features:
 
 1.Distributed web crawler
 
-*You can check ./crawler/logs for detail stat of our latest crawled. (11 * m4.large, over 1M crawled pages)
 
 == Mercator-based design. Master/Worker structure. 
 == Worker: 
