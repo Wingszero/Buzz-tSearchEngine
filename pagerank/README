@@ -1,7 +1,0 @@
-BUILD:
-Use maven to build, i.e. type "mvn package"
-
-RUN:
-Use spark to run. Note that Google's guava lib need to be included as well. 
-A typical command look like this:
-spark/spark-1.5.2-bin-hadoop2.6/bin/spark-submit --class edu.upenn.cis455.PageRank --jars pagerank/target/guava-18.0.jar --master local[2] pagerank/target/pagerank-1.0.jar urls.txt

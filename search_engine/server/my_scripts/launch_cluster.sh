@@ -1,1 +1,0 @@
-~/apache/spark-1.5.1-bin-hadoop2.6/ec2/spark-ec2 -k linweic-key-pair-useast -i ~/aws/linweic-key-pair-useast.pem --instance-type=t2.large --region=us-east-1 --zone=us-east-1a --spark-version=1.5.1 --hadoop-major-version=yarn --ebs-vol-size=100 -s 4 launch cluster
